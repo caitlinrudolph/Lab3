@@ -14,8 +14,7 @@ public class ThreeSumFast{
     static int numberOfTrials = 70;
     static int MAXINPUTSIZE  = (int) Math.pow(2,10);
     static int MININPUTSIZE  =  1;
-    // static int SIZEINCREMENT =  10000000; // not using this since we are doubling the size each time
-    private static Comparable[] aux;
+
 
     static String ResultsFolderPath = "/home/caitlin/Documents/Lab2/"; // pathname to results folder
     static FileWriter resultsFile;
@@ -27,16 +26,16 @@ public class ThreeSumFast{
         //direct the verification test results to file
         // run the whole experiment at least twice, and expect to throw away the data from the earlier runs, before java has fully optimized
         System.out.println("Running first full experiment...");
-        runFullExperiment("ThreeSumSearch-Exp1-ThrowAway.txt");
+        runFullExperiment("ThreeSumFast-Exp1-ThrowAway.txt");
         System.out.println("Running second full experiment...");
-        runFullExperiment("ThreeSumSearch-Exp2.txt");
+        runFullExperiment("ThreeSumFast-Exp2.txt");
         System.out.println("Running third full experiment...");
-        runFullExperiment("ThreeSumSearch-Exp3.txt");
+        runFullExperiment("ThreeSumFast-Exp3.txt");
 
     }
 
 
-    public static long[] createRandomListOfIntegers(int size){
+    public static long[] createRandomListOfIntegers(int size){ //creating the random list of integers using the max and min values for the specified size
         long[] newList = new long[size];
         for(int j=0;j<size;j++){
             newList[j] = (long)(MINVALUE + Math.random() * (MAXVALUE - MINVALUE));
@@ -46,10 +45,10 @@ public class ThreeSumFast{
 
     public static void verifyThreeSum()
     {
-        //print a small random list before applying merge sort algorithm
+        //print a small random list and apply the threesum method to values I know will satisfy the algorithm
         System.out.println("Starting Verify");
         System.out.println("Random List 1");
-        long[] list1 = new long[]{-1, 0 ,1};
+        long[] list1 = new long[]{-1, 0 ,1,4, -1, -3};
         System.out.println(Arrays.toString(list1));
         int list1Count = threeSum(list1);
         System.out.println("Three Sum 1");
@@ -57,7 +56,7 @@ public class ThreeSumFast{
 
 
         System.out.println("Random List 2");
-        long[] list2 = new long[]{-1,-1,2};
+        long[] list2 = new long[]{-1,-1,2, 4, -1, -3};
         System.out.println(Arrays.toString(list2));
         int list2Count = threeSum(list2);
         System.out.println("Three Sum 2");
@@ -126,15 +125,16 @@ public class ThreeSumFast{
     }
 
     public static int threeSum(long[] a){
-        Arrays.sort(a);
-        int n = a.length;
+        Arrays.sort(a); //sort the passed in array
+        int n = a.length; //n is the length of the array
         int count = 0;
 
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < n; i++) //do while less than the length of array value
         {
-            for (int j = i + 1; j < n; j++)
+            for (int j = i + 1; j < n; j++) //do while less than the length of array value
             {
-                if(binarySearch(a, -a[i]-a[j]) > j)
+                if(binarySearch(a, -a[i]-a[j]) > j) //preform a binary search and pass in the sorted array a and the key value of i and j from the array.
+                                                        // if this is greater than the value for j, increase the count
                 {
                     count++;
                 }
@@ -145,18 +145,18 @@ public class ThreeSumFast{
 
     public static int binarySearch(long[] a, long key) {
         int lo = 0;
-        int hi = a.length - 1;
+        int hi = a.length - 1; //the length of the array - 1
 
-        while (lo <= hi) {
-            int mid = lo + (hi - lo) / 2;
-            if (key < a[mid]) {
+        while (lo <= hi) { //while the low value is less than or equal to the length of the array -1
+            int mid = lo + (hi - lo) / 2; //set the middle value equal to the value of lo + the value of hi - 10, then divide by 2
+            if (key < a[mid]) { //if the key passed into the method is less than the mid index of the array, set hi = mid -1
                 hi = mid - 1;
-            } else if (key > a[mid]) {
+            } else if (key > a[mid]) { //if the key passed into the method is greather than the mid index of the array, set lo = mid + 1
                 lo = mid + 1;
-            } else {
+            } else { //otherwise return the mid value to threeSum
                 return mid;
             }
         }
-        return -1;
+        return -1; //return -1 to threesum
     }
 }

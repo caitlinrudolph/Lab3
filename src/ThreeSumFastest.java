@@ -10,11 +10,11 @@ public class ThreeSumFastest {
     /* define constants */
     static long MAXVALUE =  2000000000;
     static long MINVALUE = -2000000000;
-    static int numberOfTrials = 70;
+    static int numberOfTrials = 100;
     static int MAXINPUTSIZE  = (int) Math.pow(2,10);
     static int MININPUTSIZE  =  1;
 
-    static String ResultsFolderPath = "/home/caitlin/Documents/Lab2/"; // pathname to results folder
+    static String ResultsFolderPath = "/home/caitlin/Documents/Lab3/"; // pathname to results folder
     static FileWriter resultsFile;
     static PrintWriter resultsWriter;
 
